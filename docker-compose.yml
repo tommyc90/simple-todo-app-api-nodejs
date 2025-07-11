@@ -1,0 +1,23 @@
+services:
+  app:
+    image: node:24
+    command: tail -f /dev/null
+    working_dir: /usr/src/app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/todo_app_data
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
