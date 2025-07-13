@@ -3,7 +3,6 @@ import { todoRoutes, TODO_BASE_ROUTE } from './router/todoRouter.js';
 import { USER_BASE_ROUTE, userRoutes } from './router/userRouter.js';
 import { ResourceNotValidError } from './error/ResourceNotValidError.js';
 import fastifyJwt from '@fastify/jwt';
-import { getUserIdFromRequest } from './controller/controllerUtils.js';
 
 export const buildFastifyApp = () => {
   const app = fastify({ logger: true });

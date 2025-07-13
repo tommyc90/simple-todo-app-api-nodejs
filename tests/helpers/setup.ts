@@ -7,7 +7,6 @@ let fastifyApp: Awaited<ReturnType<typeof buildFastifyApp>>;
 let mongoServer: MongoMemoryServer;
 
 beforeAll(async () => {
-  console.log('beforeAll');
   mongoServer = await MongoMemoryServer.create();
   await connect(mongoServer.getUri());
   fastifyApp = buildFastifyApp();
@@ -15,7 +14,6 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  console.log('afterAll');
   await connection.dropDatabase();
   await connection.close();
   await mongoServer.stop();
