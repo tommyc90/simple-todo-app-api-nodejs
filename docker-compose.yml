@@ -9,6 +9,7 @@ services:
       - .:/usr/src/app
     environment:
       - MONGO_URI=mongodb://mongo:27017/todo_app_data
+      - AUTH_JWT_SECRET=authjwtsecret
     depends_on:
       - mongo
 

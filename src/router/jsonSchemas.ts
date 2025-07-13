@@ -2,11 +2,17 @@ import { validationMetadatasToSchemas, } from 'class-validator-jsonschema';
 import { TodoDto } from '../dto/TodoDto.js';
 import { TodoCreateDto } from '../dto/TodoCreateDto.js';
 import { TodoUpdateDto } from '../dto/TodoUpdateDto.js';
+import { UserDto } from '../dto/UserDto.js';
+import { UserCreateDto } from '../dto/UserCreateDto.js';
+import { UserAuthDto } from '../dto/UserAuthDto.js';
 
 const knownDtoClasses = {
   TodoDto,
   TodoCreateDto,
   TodoUpdateDto,
+  UserDto,
+  UserCreateDto,
+  UserAuthDto,
 } as const;
 
 type KnownDtoKeys = keyof typeof knownDtoClasses;

@@ -1,10 +1,17 @@
 import { FastifyInstance } from 'fastify';
 import { createTodo, deleteTodo, getTodo, getTodos, updateTodo } from '../controller/todoController.js';
 import { dtoJsonSchemas, objectIdJsonSchema } from './jsonSchemas.js';
+import { TodoCreateDto } from '../dto/TodoCreateDto.js';
+import { TodoUpdateDto } from '../dto/TodoUpdateDto.js';
+import { validateDto } from '../validation/validateDto.js';
+import { validateUserExists } from '../validation/validateUserExists.js';
 
 export const TODO_BASE_ROUTE = '/todos';
 
 export const todoRoutes = async function routes(fastify: FastifyInstance) {
+  fastify.addHook('onRequest', fastify.authenticate);
+  fastify.addHook('preValidation', validateUserExists());
+
   fastify.get('', {
     schema: {
       response: {
@@ -38,6 +45,7 @@ export const todoRoutes = async function routes(fastify: FastifyInstance) {
         201: dtoJsonSchemas.TodoDto,
       },
     },
+    preValidation: validateDto(TodoCreateDto),
   }, createTodo);
 
   fastify.post('/:id', {
@@ -54,6 +62,7 @@ export const todoRoutes = async function routes(fastify: FastifyInstance) {
         200: dtoJsonSchemas.TodoDto,
       },
     },
+    preValidation: validateDto(TodoUpdateDto),
   }, updateTodo);
 
   fastify.delete('/:id', {

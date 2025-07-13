@@ -4,8 +4,8 @@ import { TodoDto } from '../dto/TodoDto.js';
 import { TodoUpdateDto } from '../dto/TodoUpdateDto.js';
 
 class TodoCrud {
-  public async findAll(): Promise<Array<TodoDto>> {
-    const todos = await Todo.find().exec();
+  public async findAll(userId: string): Promise<Array<TodoDto>> {
+    const todos = await Todo.find({ userId }).exec();
     return todos.map((todo) => TodoDto.fromDataModel(todo));
   }
 
@@ -14,10 +14,11 @@ class TodoCrud {
     return todo && TodoDto.fromDataModel(todo);
   }
 
-  public async create(createDto: TodoCreateDto): Promise<TodoDto> {
+  public async create(createDto: TodoCreateDto, userId: string): Promise<TodoDto> {
     const todo = await Todo.create({
       title: createDto.title,
       isDone: false,
+      userId,
     });
     return TodoDto.fromDataModel(todo);
   }
