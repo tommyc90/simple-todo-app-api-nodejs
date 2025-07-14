@@ -1,6 +1,6 @@
 import { HydratedDocument } from 'mongoose';
 import { TodoDataInterface } from '../data/Todo.js';
-import { IsBoolean, IsString } from 'class-validator';
+import { IsBoolean, IsDateString, IsString } from 'class-validator';
 
 export class TodoDto {
   @IsString()
@@ -11,6 +11,10 @@ export class TodoDto {
   public readonly isDone!: boolean;
   @IsString()
   public readonly userId!: string;
+  @IsDateString()
+  public readonly createdAt!: string;
+  @IsDateString()
+  public readonly updatedAt!: string;
 
   constructor(partial: Partial<TodoDto>) {
     Object.assign(this, partial);
@@ -22,6 +26,8 @@ export class TodoDto {
       title: dataModel.title,
       isDone: dataModel.isDone,
       userId: dataModel.userId.toString(),
+      createdAt: dataModel.createdAt.toISOString(),
+      updatedAt: dataModel.updatedAt.toISOString(),
     });
   }
 }
