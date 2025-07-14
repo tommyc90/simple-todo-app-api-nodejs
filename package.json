@@ -5,6 +5,7 @@
     "scripts": {
         "build": "npm run clean && tsc -p tsconfig.build.json",
         "start": "node dist/Server.js",
+        "start:debug": "node --inspect=0.0.0.0:9229 dist/Server.js",
         "watch": "concurrently \"tsc -w -p tsconfig.build.json\" \"nodemon dist/Server.js\"",
         "clean": "rm -rf dist",
         "test": "vitest",
